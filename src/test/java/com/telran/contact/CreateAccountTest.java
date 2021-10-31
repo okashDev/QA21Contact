@@ -14,27 +14,23 @@ public class CreateAccountTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (!isElementPresent(By.xpath("//a[contains(.,'LOGIN')]"))) {
-            driver.findElement(By.xpath("//button[contains(.,'Sign Out')]")).click();
+        if (!isLoginTabPresent()) {
+            click(By.xpath("//button[contains(.,'Sign Out')]"));
         }
     }
 
     @Test
     public void registrationPositiveTest() {
-        driver.findElement(By.xpath("//a[contains(.,'LOGIN')]")).click();
-        Assert.assertTrue(isElementPresent(By.cssSelector(".login_login__3EHKB")));
+    //    click By.xpath("//a[contains(.,'LOGIN')]")
+        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        Assert.assertTrue(isLoginRegistrationFormPresent());
 
-        driver.findElement(By.cssSelector("[placeholder='Email']")).click();
-        driver.findElement(By.cssSelector("[placeholder='Email']")).clear();
-        driver.findElement(By.cssSelector("[placeholder='Email']")).sendKeys("LisaAlisaYA@gmail.com");
+        type(By.cssSelector("[placeholder='Email']"), "LisaAlisaLA@gmail.com");
 
-        driver.findElement(By.cssSelector("[placeholder='Password']")).click();
-        driver.findElement(By.cssSelector("[placeholder='Password']")).clear();
-        driver.findElement(By.cssSelector("[placeholder='Password']")).sendKeys("LiAl1234~");
+        type(By.cssSelector("[placeholder='Password']"), "LiAl12345~");
 
-        driver.findElement(By.xpath("//button[contains(.,'Registration')]")).click();
-        Assert.assertTrue(isElementPresent(By.xpath("//button[contains(.,'Sign Out')]")));
-
+        click(By.xpath("//button[contains(.,'Registration')]"));
+        Assert.assertTrue(isSignOutTabPresent());
     }
 
 }
